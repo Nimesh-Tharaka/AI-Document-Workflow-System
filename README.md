@@ -161,7 +161,8 @@ Extracts and manages complaint information such as:
 
 ### Complaint List Page
 
-<img src="screenshots/Screenshot_22-3-2026_195849_localhost.jpeg" alt="Complaint List" width="100%" />
+![Screenshot_22-3-2026_195849_localhost](https://github.com/user-attachments/assets/084017a2-666e-45a8-9085-73d3e22bf01a)
+
 
 ### Complaint Detail Page
 ![Screenshot_22-3-2026_2008_localhost](https://github.com/user-attachments/assets/de8fa701-c601-412e-a7e7-d0be2a89c639)
@@ -184,11 +185,13 @@ Extracts and manages complaint information such as:
 
 
 ### n8n Invoice Approval Workflow
+<img width="1918" height="1042" alt="n8n work 2 ss" src="https://github.com/user-attachments/assets/93993a82-70ac-4376-af4f-b9d7ecb8f564" />
 
 
 ### n8n Invoice Approval Workflow Execution View
 
-<img width="1917" height="1027" alt="n8n work 3 ss" src="https://github.com/user-attachments/assets/d7585e7c-cb92-4d23-acd3-fa7a2efcd42a" />
+<img width="1917" height="1027" alt="n8n work 3 ss" src="https://github.com/user-attachments/assets/8b8295a0-97f7-4e62-a580-6ead55ab675d" />
+
 
 ### n8n Approval Workflow View
 
