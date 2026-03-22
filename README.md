@@ -141,6 +141,39 @@ Extracts and manages complaint information such as:
 
 ## Screenshots
 
+### n8n Invoice Routing Workflow
+<img width="1912" height="1038" alt="n8n work 1 ss" src="https://github.com/user-attachments/assets/d746620d-6da7-4737-b9a9-fb71cd303836" />
+
+
+### n8n Invoice Approval Workflow
+<img width="1918" height="1042" alt="n8n work 2 ss" src="https://github.com/user-attachments/assets/93993a82-70ac-4376-af4f-b9d7ecb8f564" />
+
+
+### n8n Invoice Approval Workflow Execution View
+
+<img width="1917" height="1027" alt="n8n work 3 ss" src="https://github.com/user-attachments/assets/8b8295a0-97f7-4e62-a580-6ead55ab675d" />
+
+
+### n8n Approval Workflow View
+
+<img width="1276" height="930" alt="n8n work 4 ss" src="https://github.com/user-attachments/assets/0db2303e-a5c3-448f-8cec-6a3b1d2c0a47" />
+
+### n8n Leave Request Routing Workflow
+
+<img width="1647" height="1017" alt="n8n work 5 ss" src="https://github.com/user-attachments/assets/e7d36131-1289-41cd-ace5-d35c8a601085" />
+
+### n8n Leave Request Approval Workflow
+
+<img width="1660" height="1022" alt="n8n work 6 ss" src="https://github.com/user-attachments/assets/451d8cda-ff42-4c68-af5a-0e7d146f0d38" />
+
+### n8n Complaint Routing Workflow
+
+<img width="1671" height="1033" alt="n8n work 7 ss" src="https://github.com/user-attachments/assets/e8e6ee10-33e4-49ce-8ce5-902eab473457" />
+
+### Docker Desktop Running n8n
+
+<img width="1913" height="1147" alt="docker ss" src="https://github.com/user-attachments/assets/3aa245a1-7c1c-418e-be64-714ee8e7ff7f" />
+
 ### Login Page
 
 ![Screenshot_22-3-2026_20218_localhost](https://github.com/user-attachments/assets/3199d64f-861e-477a-b68f-0708d9796141)
@@ -174,41 +207,6 @@ Extracts and manages complaint information such as:
 ### Invoice Analytics Dashboard
 
 ![Screenshot_22-3-2026_195858_localhost](https://github.com/user-attachments/assets/a61d6155-47e0-490e-a698-4658e9cbbdb3)
-
-### Docker Desktop Running n8n
-
-<img width="1913" height="1147" alt="docker ss" src="https://github.com/user-attachments/assets/3aa245a1-7c1c-418e-be64-714ee8e7ff7f" />
-
-
-### n8n Invoice Routing Workflow
-<img width="1912" height="1038" alt="n8n work 1 ss" src="https://github.com/user-attachments/assets/d746620d-6da7-4737-b9a9-fb71cd303836" />
-
-
-### n8n Invoice Approval Workflow
-<img width="1918" height="1042" alt="n8n work 2 ss" src="https://github.com/user-attachments/assets/93993a82-70ac-4376-af4f-b9d7ecb8f564" />
-
-
-### n8n Invoice Approval Workflow Execution View
-
-<img width="1917" height="1027" alt="n8n work 3 ss" src="https://github.com/user-attachments/assets/8b8295a0-97f7-4e62-a580-6ead55ab675d" />
-
-
-### n8n Approval Workflow View
-
-<img width="1276" height="930" alt="n8n work 4 ss" src="https://github.com/user-attachments/assets/0db2303e-a5c3-448f-8cec-6a3b1d2c0a47" />
-
-### n8n Leave Request Routing Workflow
-
-<img width="1647" height="1017" alt="n8n work 5 ss" src="https://github.com/user-attachments/assets/e7d36131-1289-41cd-ace5-d35c8a601085" />
-
-### n8n Leave Request Approval Workflow
-
-<img width="1660" height="1022" alt="n8n work 6 ss" src="https://github.com/user-attachments/assets/451d8cda-ff42-4c68-af5a-0e7d146f0d38" />
-
-### n8n Complaint Routing Workflow
-
-<img width="1671" height="1033" alt="n8n work 7 ss" src="https://github.com/user-attachments/assets/e8e6ee10-33e4-49ce-8ce5-902eab473457" />
-
 ---
 
 ## How the System Works
