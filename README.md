@@ -1,299 +1,273 @@
-# 📄 AI Document Workflow System
+#  📄 AI Document Workflow System
 
-An AI-powered full-stack workflow automation platform for **uploading business documents**, **extracting structured information**, **routing them to the correct department**, and **managing approvals** through a clean white dashboard.
+AI-powered document workflow automation platform for **invoice processing**, **leave request handling**, and **complaint routing** with **FastAPI**, **React**, **PostgreSQL**, **Gemini OCR extraction**, and **n8n automation**.
 
-Built with **FastAPI**, **React**, **PostgreSQL**, **Gemini**, **OCR**, **n8n**, and **Docker**.
+This project helps organizations upload documents, extract important fields, route them to the correct department, manage approvals, and maintain a full audit trail from a single dashboard.
 
 ---
-## 📌 Overview
 
-Business documents such as invoices, leave requests, and complaints are often processed manually. This process is usually slow, repetitive, and difficult to track.
+## Table of Contents
 
-The **AI Document Workflow System** was built to make document handling faster and smarter through:
+- [Overview](#overview)
+- [Main Features](#main-features)
+- [Supported Modules](#supported-modules)
+- [Screenshots](#screenshots)
+- [How the System Works](#how-the-system-works)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Authentication and Roles](#authentication-and-roles)
+- [Module Workflows](#module-workflows)
+- [n8n Automation Workflows](#n8n-automation-workflows)
+- [API Overview](#api-overview)
+- [Environment Variables](#environment-variables)
+- [Installation](#installation)
+- [How to Run](#how-to-run)
+- [Demo Accounts](#demo-accounts)
+- [Current Scope](#current-scope)
+- [Future Improvements](#future-improvements)
+- [Why This Project Matters](#why-this-project-matters)
+- [License](#license)
+- [Author](#author)
 
-- 📤 document upload
-- 🔍 OCR and text extraction
-- 🤖 AI field extraction
-- 🧭 automatic routing
-- ✅ approval workflows
-- 📝 comments and audit log tracking
-- 📊 dashboard-based review
+---
+
+## Overview
+
+The **AI Document Workflow System** is a full-stack document automation platform designed to reduce manual work in business document processing.
 
 The system currently supports:
 
-- 🌐 **Universal Upload**
-- 🧾 **Invoice Processing**
-- 🏖️ **Leave Request Management**
-- 📢 **Complaint Processing**
+- **Invoices**
+- **Leave Requests**
+- **Complaints**
 
-Instead of manually reading, classifying, routing, and updating each document, the platform automates the workflow from upload to final approval.
+It also includes a **Universal Upload** entry point to accept mixed document uploads from one place.
 
----
+After a document is uploaded, the system:
 
-## 🚨 Problem Statement
-
-In many organizations, document processing is still manual.
-
-This often leads to:
-
-- ⏳ slow processing time
-- 📄 repeated manual reading of documents
-- 🧭 incorrect department routing
-- 📝 missing approval comments
-- 🔍 poor tracking of workflow history
-- 📂 scattered data across teams
-- ❌ lack of a clear audit trail
-
-This becomes even harder when handling different document types such as invoices, leave requests, and complaints in one system.
+1. Extracts text from PDF or image files
+2. Uses AI to identify structured fields
+3. Stores extracted data in PostgreSQL
+4. Routes the document to the correct department
+5. Triggers n8n automation workflows
+6. Supports approval, rejection, comments, and audit logs
+7. Displays everything in a clean white dashboard UI
 
 ---
 
-## 💡 Proposed Solution
+## Main Features
 
-This project introduces an AI-assisted workflow automation system that helps users upload and manage documents in one place.
+### Core Features
 
-The system:
+- Upload **PDF, JPG, JPEG, and PNG** documents
+- OCR support for scanned documents and images
+- AI field extraction using **Gemini**
+- Structured data storage using **PostgreSQL**
+- Module-based document management
+- Universal upload flow
+- Automatic department routing
+- Manual reassignment support
+- Approval and rejection workflow
+- Comments and review notes
+- Full audit log tracking
+- JWT-based authentication
+- Role-based access control
+- Clean white dashboard interface
+- Analytics dashboard for invoice processing
 
-- 📥 accepts uploaded PDF and image documents
-- 🔎 extracts document text using OCR and PDF parsers
-- 🤖 uses Gemini to extract structured fields
-- 🗄️ stores records in PostgreSQL
-- 🧭 routes documents to the proper department
-- 🔁 triggers n8n workflows for routing and approvals
-- ✅ allows approvers to approve, reject, or mark pending review
-- 📝 stores comments and audit history
-- 🖥️ shows everything in a clean white dashboard UI
+### Status Values
 
-The goal is to reduce manual document handling and improve routing, approval, and tracking accuracy.
-
----
-
-## 🌟 Novelty
-
-- 📄 supports multiple real business document types
-- 🤖 uses AI to extract structured document fields
-- 🔎 combines OCR, AI extraction, routing, and approval in one platform
-- 📌 includes comments and audit logs for each record
-- 🔁 integrates with n8n for workflow automation
-- 🐳 runs n8n using Docker
-- 🌐 includes a modern white dashboard UI
-- 🧩 separates workflows by module while keeping a single system
+- `processed`
+- `pending_review`
+- `approved`
+- `rejected`
+- `needs_correction`
+- `workflow_completed`
 
 ---
 
-## 🧩 Supported Modules
+## Supported Modules
 
-### 🌐 Universal Upload
+### 1. Universal Upload
 
 A single upload entry point that accepts mixed document types and routes them to the correct processing flow.
 
-### 🧾 Invoice Module
+### 2. Invoice Module
 
-Extracted fields include:
+Extracts and manages invoice details such as:
 
-- `vendor_name`
-- `invoice_number`
-- `invoice_date`
-- `due_date`
-- `total_amount`
-- `currency`
-- `summary`
+- Vendor name
+- Invoice number
+- Invoice date
+- Due date
+- Total amount
+- Currency
+- Summary
 
-**Main routing:**
+**Main department:** Finance
 
-- 💼 Finance
-- 💰 Finance high-value path for selected cases
+### 3. Leave Request Module
 
-**Functions:**
+Extracts and manages leave-related information such as:
 
-- upload invoice
-- extract text
-- extract AI fields
-- auto route
-- approve or reject
-- add comments
-- track audit logs
+- Employee name
+- Leave type
+- Start date
+- End date
+- Reason
+- Department
+- Summary
 
----
+**Main department:** HR
 
-### 🏖️ Leave Request Module
+### 4. Complaint Module
 
-Extracted fields include:
+Extracts and manages complaint information such as:
 
-- `employee_name`
-- `leave_type`
-- `start_date`
-- `end_date`
-- `reason`
-- `department`
-- `summary`
+- Customer name
+- Complaint type
+- Urgency
+- Issue summary
+- Assigned department
+- Summary
 
-**Main routing:**
+**Main routing behavior:**
 
-- 🏢 HR
-
-**Functions:**
-
-- upload leave request
-- extract text
-- extract AI fields
-- auto route to HR
-- approve or reject
-- add comments
-- track audit logs
+- Normal complaints → Customer Support
+- High urgency complaints → Operations
 
 ---
 
-### 📢 Complaint Module
+## Screenshots
 
-Extracted fields include:
+> Create a folder named `screenshots` in your repository root and place the image files there using the same filenames shown below.
 
-- `customer_name`
-- `complaint_type`
-- `urgency`
-- `issue_summary`
-- `department`
-- `summary`
+### Login Page
 
-**Main routing:**
+<img src="screenshots/Screenshot_22-3-2026_20218_localhost.jpeg" alt="Login Page" width="100%" />
 
-- 🎧 Customer Support for normal complaints
-- 🚨 Operations for high urgency complaints
+### Home Dashboard
 
-**Functions:**
+<img src="screenshots/Screenshot_22-3-2026_195721_localhost.jpeg" alt="Home Dashboard" width="100%" />
 
-- upload complaint
-- extract text
-- extract AI fields
-- auto route by urgency
-- approve or reject
-- add comments
-- track audit logs
+### Invoice Analytics Dashboard
 
----
+<img src="screenshots/Screenshot_22-3-2026_195858_localhost.jpeg" alt="Invoice Dashboard" width="100%" />
 
-## 🖼️ System Screenshots
+### Leave Requests List Page
 
-> Create a folder named `screenshots` in your repository root and place all screenshot files there using the same file names below.
+<img src="screenshots/Screenshot_22-3-2026_195840_localhost.jpeg" alt="Leave Request List" width="100%" />
 
-### 🔐 Login Page
-![Login Page](screenshots/Screenshot_22-3-2026_20218_localhost.jpeg)
+### Leave Request Detail Page
 
-### 🏠 Home Dashboard
-![Home Dashboard](screenshots/Screenshot_22-3-2026_195721_localhost.jpeg)
+<img src="screenshots/Screenshot_22-3-2026_20026_localhost.jpeg" alt="Leave Request Detail" width="100%" />
 
-### 📊 Invoice Analytics Dashboard
-![Invoice Dashboard](screenshots/Screenshot_22-3-2026_195858_localhost.jpeg)
+### Complaint List Page
 
-### 📝 Leave Request List
-![Leave Request List](screenshots/Screenshot_22-3-2026_195840_localhost.jpeg)
+<img src="screenshots/Screenshot_22-3-2026_195849_localhost.jpeg" alt="Complaint List" width="100%" />
 
-### 📄 Leave Request Detail
-![Leave Request Detail](screenshots/Screenshot_22-3-2026_20026_localhost.jpeg)
+### Complaint Detail Page
 
-### 📢 Complaint List
-![Complaint List](screenshots/Screenshot_22-3-2026_195849_localhost.jpeg)
+<img src="screenshots/Screenshot_22-3-2026_2008_localhost.jpeg" alt="Complaint Detail" width="100%" />
 
-### 📄 Complaint Detail
-![Complaint Detail](screenshots/Screenshot_22-3-2026_2008_localhost.jpeg)
+### Invoice Detail Page
 
-### 🧾 Invoice Detail
-![Invoice Detail](screenshots/Screenshot_22-3-2026_195825_localhost.jpeg)
+<img src="screenshots/Screenshot_22-3-2026_195825_localhost.jpeg" alt="Invoice Detail" width="100%" />
 
-### 🐳 Docker Desktop Running n8n
-![Docker Desktop](screenshots/docker%20ss.png)
+### Docker Desktop Running n8n
 
-### 🔄 n8n Invoice Routing Workflow
-![n8n Invoice Routing Workflow](screenshots/n8n%20work%201%20ss.png)
+<img src="screenshots/docker%20ss.png" alt="Docker Desktop n8n Container" width="100%" />
 
-### ✅ n8n Invoice Approval Workflow
-![n8n Invoice Approval Workflow](screenshots/n8n%20work%202%20ss.png)
+### n8n Invoice Routing Workflow
 
-### 🔍 n8n Invoice Approval Execution
-![n8n Invoice Approval Execution](screenshots/n8n%20work%203%20ss.png)
+<img src="screenshots/n8n%20work%201%20ss.png" alt="Invoice Routing Workflow" width="100%" />
 
-### 🔁 n8n Approval Flow View
-![n8n Approval Flow View](screenshots/n8n%20work%204%20ss.png)
+### n8n Invoice Approval Workflow
 
-### 🏢 n8n Leave Request Routing Workflow
-![n8n Leave Routing Workflow](screenshots/n8n%20work%205%20ss.png)
+<img src="screenshots/n8n%20work%202%20ss.png" alt="Invoice Approval Workflow" width="100%" />
 
-### ✅ n8n Leave Request Approval Workflow
-![n8n Leave Approval Workflow](screenshots/n8n%20work%206%20ss.png)
+### n8n Invoice Approval Workflow Execution View
 
-### 🚨 n8n Complaint Routing Workflow
-![n8n Complaint Routing Workflow](screenshots/n8n%20work%207%20ss.png)
+<img src="screenshots/n8n%20work%203%20ss.png" alt="Invoice Approval Workflow Execution" width="100%" />
+
+### n8n Approval Workflow View
+
+<img src="screenshots/n8n%20work%204%20ss.png" alt="Approval Workflow View" width="100%" />
+
+### n8n Leave Request Routing Workflow
+
+<img src="screenshots/n8n%20work%205%20ss.png" alt="Leave Request Routing Workflow" width="100%" />
+
+### n8n Leave Request Approval Workflow
+
+<img src="screenshots/n8n%20work%206%20ss.png" alt="Leave Request Approval Workflow" width="100%" />
+
+### n8n Complaint Routing Workflow
+
+<img src="screenshots/n8n%20work%207%20ss.png" alt="Complaint Routing Workflow" width="100%" />
 
 ---
 
-## ⚙️ Core Features
+## How the System Works
 
-### 📤 Document Upload
-- Upload PDF, JPG, JPEG, and PNG files
-- Support mixed document intake from one platform
+### Step 1 — Upload
 
-### 🔎 OCR and Text Extraction
-- Extract text from:
-  - text-based PDFs
-  - scanned PDFs
-  - JPG / JPEG / PNG images
+A user uploads a document through the frontend.
 
-### 🤖 AI Field Extraction
-- Extract structured data using Gemini
-- Return relevant fields depending on document type
+### Step 2 — Text Extraction
 
-### 🧭 Department Routing
-- Automatically assign departments using workflow logic
-- Allow manual reassignment when needed
+The backend reads the document and extracts text using:
 
-### ✅ Approval Workflow
-- Approve, reject, or mark documents as pending review
-- Add comments during review
-- Maintain approval trail for each record
+- `pdfplumber` or `pypdf` for text-based PDFs
+- `Tesseract OCR` for scanned PDFs and images
 
-### 📝 Comments and Audit Logs
-- Add workflow comments
-- Store approval history
-- Track routing and status changes
+### Step 3 — AI Extraction
 
-### 📊 Dashboard and Analytics
-- View module records
-- Open document detail pages
-- Review extracted content
-- Monitor invoice analytics dashboard
+The extracted text is sent to **Gemini**, which returns structured fields depending on the document type.
 
----
+### Step 4 — Save Data
 
-## 🧠 Use Cases
+The backend stores:
 
-This system can be useful for:
+- File metadata
+- Raw extracted text
+- AI-extracted structured data
+- Workflow status
+- Assigned department
+- Approval comments
+- Audit logs
 
-- 🏢 internal business workflow automation
-- 🧾 invoice routing and approval
-- 🏖️ employee leave request handling
-- 📢 complaint intake and assignment
-- 📋 approval process tracking
-- 🔍 review of extracted document content
-- 📝 audit-friendly record keeping
-- 🤖 AI-powered document processing
+### Step 5 — Route Through n8n
 
----
+FastAPI triggers n8n webhook flows for routing and approval tracking.
 
-## 🔄 System Workflow
+### Step 6 — Review and Approval
 
-1. 📤 User uploads a document from the frontend
-2. 📦 Backend stores the uploaded file
-3. 🔎 Text is extracted from the file
-4. 🤖 Gemini extracts structured fields
-5. 🗄️ Data is stored in PostgreSQL
-6. 🔁 FastAPI triggers n8n workflow webhooks
-7. 🧭 n8n decides routing or approval update
-8. 📝 Backend updates status, comments, and audit history
-9. 🖥️ Users review the record in the dashboard
+Approvers can:
+
+- Mark pending review
+- Approve
+- Reject
+- Add comments
+- Reassign department manually
+
+### Step 7 — Audit Logging
+
+All important actions are tracked, including:
+
+- Uploaded
+- Processed
+- Routed
+- Manually assigned
+- Approved
+- Rejected
+- Commented
+- Workflow completed
 
 ---
 
-## 🏗️ System Architecture
+## Architecture
 
 ```text
 React + Vite + Tailwind
@@ -303,7 +277,7 @@ React + Vite + Tailwind
         |
         +--> PostgreSQL
         |
-        +--> OCR / PDF Extraction
+        +--> PDF / OCR Extraction
         |
         +--> Gemini AI Extraction
         |
@@ -316,183 +290,49 @@ React + Vite + Tailwind
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### 🎨 Frontend
+### Frontend
+
 - React
 - Vite
 - Tailwind CSS
 - Axios
 - Recharts
 
-### ⚙️ Backend
-- Python
+### Backend
+
 - FastAPI
 - SQLAlchemy
 - Pydantic
 - Uvicorn
 
-### 🗄️ Database
+### Database
+
 - PostgreSQL
 
-### 🤖 AI / OCR
+### AI and OCR
+
 - Gemini API
 - pdfplumber
 - pypdf
 - pytesseract
 - Tesseract OCR
 
-### 🔁 Automation
+### Automation
+
 - n8n
 - Docker Desktop
 
-### 🔐 Authentication / Security
+### Authentication
+
 - JWT
 - PyJWT
-- password hashing utilities
+- Password hashing utilities
 
 ---
 
-## 🖥️ System Interface
-
-### Available UI Features
-
-- 🔐 Login page with demo accounts
-- 🏠 Home dashboard
-- 🌐 Universal upload
-- 🧾 Invoice list and invoice detail page
-- 🏖️ Leave request list and detail page
-- 📢 Complaint list and detail page
-- 🧭 Routing and department assignment controls
-- ✅ Approval comment panel
-- 📝 Audit log panel
-- 📊 Invoice analytics dashboard
-
----
-
-## 🔁 n8n Workflows
-
-This project includes separate n8n workflows for routing and approvals.
-
-### 🧾 Invoice Routing Workflow
-- receives invoice data
-- checks route condition
-- routes standard or high-value invoice
-- sends response back to backend
-
-### ✅ Invoice Approval Workflow
-- receives approval actions
-- checks whether status is approved, rejected, or pending review
-- updates workflow state in backend
-
-### 🏢 Leave Request Routing Workflow
-- receives leave request data
-- routes directly to HR
-- sends workflow result back to backend
-
-### ✅ Leave Request Approval Workflow
-- receives approval decision
-- updates backend for approved, rejected, or pending review states
-
-### 🚨 Complaint Routing Workflow
-- receives complaint data
-- checks urgency
-- routes to Customer Support or Operations
-- sends workflow result back to backend
-
-### 🐳 Docker Note
-
-n8n runs inside Docker and communicates with the backend through HTTP requests.
-
-When backend is running on the host machine, n8n can use:
-
-```text
-http://host.docker.internal:8000
-```
-
-for callback and update endpoints.
-
----
-
-## 🔐 Authentication and Roles
-
-The system uses **JWT-based authentication**.
-
-### 👑 Admin
-- Upload documents
-- View all records
-- Route documents
-- Approve or reject
-- Add comments
-- Access dashboard analytics
-
-### 👨‍💼 Staff
-- Upload documents
-- View submitted documents
-
-### ✅ Approver
-- View routed documents
-- Approve or reject
-- Add workflow comments
-- Review history and logs
-
----
-
-## 🧪 Status Values
-
-The system uses the following workflow states:
-
-- `processed`
-- `pending_review`
-- `approved`
-- `rejected`
-- `needs_correction`
-- `workflow_completed`
-
----
-
-## 📡 API Overview
-
-### 🔐 Auth
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-
-### 🧾 Invoice
-- `POST /api/invoices/upload`
-- `GET /api/invoices`
-- `GET /api/invoices/{invoice_id}`
-- `PATCH /api/invoices/{invoice_id}/status`
-- `POST /api/invoices/{invoice_id}/route/auto`
-- `PATCH /api/invoices/{invoice_id}/route/manual`
-- `POST /api/invoices/{invoice_id}/comments`
-- `GET /api/invoices/{invoice_id}/comments`
-- `GET /api/invoices/{invoice_id}/audit-logs`
-
-### 🏖️ Leave Request
-- `POST /api/leave-requests/upload`
-- `GET /api/leave-requests`
-- `GET /api/leave-requests/{leave_request_id}`
-- `PATCH /api/leave-requests/{leave_request_id}/status`
-- `POST /api/leave-requests/{leave_request_id}/route/auto`
-- `PATCH /api/leave-requests/{leave_request_id}/route/manual`
-- `POST /api/leave-requests/{leave_request_id}/comments`
-- `GET /api/leave-requests/{leave_request_id}/comments`
-- `GET /api/leave-requests/{leave_request_id}/audit-logs`
-
-### 📢 Complaint
-- `POST /api/complaints/upload`
-- `GET /api/complaints`
-- `GET /api/complaints/{complaint_id}`
-- `PATCH /api/complaints/{complaint_id}/status`
-- `POST /api/complaints/{complaint_id}/route/auto`
-- `PATCH /api/complaints/{complaint_id}/route/manual`
-- `POST /api/complaints/{complaint_id}/comments`
-- `GET /api/complaints/{complaint_id}/comments`
-- `GET /api/complaints/{complaint_id}/audit-logs`
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
 ai-document-workflow-system/
@@ -563,7 +403,174 @@ ai-document-workflow-system/
 
 ---
 
-## 🔑 Environment Variables
+## Authentication and Roles
+
+The system uses **JWT-based authentication**.
+
+### Admin
+
+- Upload documents
+- View all records
+- Route documents
+- Approve or reject
+- Add comments
+- Access dashboard analytics
+
+### Staff
+
+- Upload documents
+- View submitted documents
+
+### Approver
+
+- View routed documents
+- Approve or reject
+- Add workflow comments
+- Review history and logs
+
+---
+
+## Module Workflows
+
+### Invoice Workflow
+
+1. Upload invoice
+2. Extract invoice text
+3. Extract fields with Gemini
+4. Save data in database
+5. Trigger n8n routing
+6. Route to Finance or high-value flow
+7. Approval workflow begins
+8. Approve, reject, or mark pending review
+9. Store comments and audit logs
+
+### Leave Request Workflow
+
+1. Upload leave request
+2. Extract text
+3. Extract leave details with Gemini
+4. Save data
+5. Trigger n8n routing
+6. Route to HR
+7. Begin approval workflow
+8. Approve, reject, or mark pending review
+9. Store comments and logs
+
+### Complaint Workflow
+
+1. Upload complaint
+2. Extract text
+3. Extract complaint fields with Gemini
+4. Save data
+5. Trigger n8n routing
+6. Route by urgency
+7. Begin review flow
+8. Approve, reject, or mark pending review
+9. Maintain comments and audit logs
+
+---
+
+## n8n Automation Workflows
+
+This project uses **webhook-based n8n workflows** to automate routing and approval updates.
+
+### Invoice Routing Workflow
+
+- Receives invoice payload from backend
+- Checks invoice value or business rule
+- Routes to correct finance path
+- Sends routing result back to FastAPI
+
+### Invoice Approval Workflow
+
+- Receives approval action
+- Checks whether status is:
+  - approved
+  - rejected
+  - pending_review
+- Sends appropriate workflow update back to backend
+- Logs the approval stage in the system
+
+### Leave Request Routing Workflow
+
+- Receives leave request payload
+- Routes directly to HR
+- Returns workflow update to backend
+
+### Leave Request Approval Workflow
+
+- Receives approval decision
+- Handles approved, rejected, and pending review cases
+- Updates backend workflow records
+
+### Complaint Routing Workflow
+
+- Receives complaint payload
+- Checks complaint urgency
+- Routes high urgency complaints to Operations
+- Routes normal complaints to Customer Support
+- Sends routing result back to backend
+
+### Docker Note
+
+n8n runs inside Docker and communicates with the backend through HTTP requests.
+
+When backend is running on the host machine, n8n can use:
+
+```text
+http://host.docker.internal:8000
+```
+
+for callback/update endpoints.
+
+---
+
+## API Overview
+
+### Auth
+
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+
+### Invoice
+
+- `POST /api/invoices/upload`
+- `GET /api/invoices`
+- `GET /api/invoices/{invoice_id}`
+- `PATCH /api/invoices/{invoice_id}/status`
+- `POST /api/invoices/{invoice_id}/route/auto`
+- `PATCH /api/invoices/{invoice_id}/route/manual`
+- `POST /api/invoices/{invoice_id}/comments`
+- `GET /api/invoices/{invoice_id}/comments`
+- `GET /api/invoices/{invoice_id}/audit-logs`
+
+### Leave Request
+
+- `POST /api/leave-requests/upload`
+- `GET /api/leave-requests`
+- `GET /api/leave-requests/{leave_request_id}`
+- `PATCH /api/leave-requests/{leave_request_id}/status`
+- `POST /api/leave-requests/{leave_request_id}/route/auto`
+- `PATCH /api/leave-requests/{leave_request_id}/route/manual`
+- `POST /api/leave-requests/{leave_request_id}/comments`
+- `GET /api/leave-requests/{leave_request_id}/comments`
+- `GET /api/leave-requests/{leave_request_id}/audit-logs`
+
+### Complaint
+
+- `POST /api/complaints/upload`
+- `GET /api/complaints`
+- `GET /api/complaints/{complaint_id}`
+- `PATCH /api/complaints/{complaint_id}/status`
+- `POST /api/complaints/{complaint_id}/route/auto`
+- `PATCH /api/complaints/{complaint_id}/route/manual`
+- `POST /api/complaints/{complaint_id}/comments`
+- `GET /api/complaints/{complaint_id}/comments`
+- `GET /api/complaints/{complaint_id}/audit-logs`
+
+---
+
+## Environment Variables
 
 Create a `.env` file inside the `backend/` folder:
 
@@ -587,16 +594,16 @@ TESSERACT_CMD=C:\Program Files\Tesseract-OCR\tesseract.exe
 
 ---
 
-## ⚡ Installation
+## Installation
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/ai-document-workflow-system.git
 cd ai-document-workflow-system
 ```
 
-### 2️⃣ Setup Backend
+### 2. Setup Backend
 
 ```bash
 cd backend
@@ -605,14 +612,14 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Setup Frontend
+### 3. Setup Frontend
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-### 4️⃣ Setup n8n with Docker
+### 4. Setup n8n with Docker
 
 Create `n8n/docker-compose.yml`:
 
@@ -640,13 +647,13 @@ docker compose up -d
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
-### 🗄️ Start PostgreSQL
+### Start PostgreSQL
 
 Make sure PostgreSQL is installed and the database exists.
 
-### ⚙️ Start Backend
+### Start Backend
 
 ```bash
 cd backend
@@ -666,7 +673,7 @@ Swagger docs:
 http://127.0.0.1:8000/docs
 ```
 
-### 🎨 Start Frontend
+### Start Frontend
 
 ```bash
 cd frontend
@@ -679,7 +686,7 @@ Frontend URL:
 http://localhost:5173
 ```
 
-### 🔁 Start n8n
+### Start n8n
 
 ```bash
 cd n8n
@@ -694,69 +701,72 @@ http://localhost:5678
 
 ---
 
-## 👤 Demo Accounts
+## Demo Accounts
 
-### 👑 Admin
+### Admin
+
 - Username: `admin`
 - Password: `admin123`
 
-### 👨‍💼 Staff
+### Staff
+
 - Username: `staff`
 - Password: `staff123`
 
-### ✅ Approver
+### Approver
+
 - Username: `approver`
 - Password: `approver123`
 
 ---
 
-## 📍 Current Scope
+## Current Scope
 
 This project currently includes:
 
-- 🌐 Universal Upload
-- 🧾 Invoice Processing
-- 🏖️ Leave Request Processing
-- 📢 Complaint Processing
-- 🔁 Routing Workflows with n8n
-- ✅ Approval Tracking with n8n
-- 📝 Comments and audit trail
-- 🖥️ White dashboard UI
-- 📊 Invoice analytics dashboard
+- Universal Upload
+- Invoice Processing
+- Leave Request Processing
+- Complaint Processing
+- Routing Workflows with n8n
+- Approval Tracking with n8n
+- Comments and audit trail
+- White dashboard UI
+- Invoice analytics dashboard
 
 This is the current MVP scope.
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
-- 📧 Email notifications
-- 👁️ File preview and download
-- 🧠 Better document type auto-detection
-- 📊 Unified analytics across all modules
-- 👥 Role management UI
-- 📤 Exportable reports
-- ☁️ Cloud deployment
-- 🏢 Multi-tenant support
-- 🧭 Smarter routing rules
-- 📈 Better dashboard insights for leave requests and complaints
+- Email notifications
+- File preview and download
+- Better document type auto-detection
+- Unified analytics across all modules
+- Role management UI
+- Exportable reports
+- Cloud deployment
+- Multi-tenant support
+- Smarter routing rules
+- Better dashboard insights for leave requests and complaints
 
 ---
 
-## 🎯 Why This Project Matters
+## Why This Project Matters
 
 This project demonstrates strong practical skills in:
 
-- 💻 Full-stack software development
-- 🤖 AI-assisted document understanding
-- 🔎 OCR integration for scanned files
-- ⚙️ API development with FastAPI
-- 🎨 React dashboard design
-- 🗄️ Database modeling with PostgreSQL
-- 🔁 Workflow automation using n8n
-- 🐳 Docker-based automation setup
-- ✅ Approval pipelines and audit logging
-- 🏢 Real business process digitization
+- Full-stack software development
+- AI-assisted document understanding
+- OCR integration for scanned files
+- API development with FastAPI
+- React dashboard design
+- Database modeling with PostgreSQL
+- Workflow automation using n8n
+- Docker-based automation setup
+- Approval pipelines and audit logging
+- Real business process digitization
 
 It is a strong portfolio project for:
 
@@ -767,7 +777,7 @@ It is a strong portfolio project for:
 
 ---
 
-## 📜 License
+## License
 
 This project is for educational and portfolio purposes.
 
@@ -779,7 +789,7 @@ You can replace this with your preferred license later, such as:
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Your Name**  
 Software Engineer | Researcher | AI Workflow Builder
