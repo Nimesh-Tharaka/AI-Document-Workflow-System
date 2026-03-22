@@ -790,7 +790,6 @@ You can replace this with your preferred license later, such as:
 
 ## Author
 
-**Your Name**  
-Software Engineer | Researcher | AI Workflow Builder
-
-**GitHub:** `https://github.com/your-username`
+Nimesh Tharaka Bandaranayake BSc (Hons) IT – Data Science SLIIT
+AI Engineer | Data Science | Exploring AI, Machine Learning, and Big Data
+**GitHub:** `https://github.com/Nimesh Tharaka
